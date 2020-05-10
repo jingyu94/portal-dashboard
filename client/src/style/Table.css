@@ -1,0 +1,26 @@
+.theader {
+    background: #CCCCCC  ;
+    display: flex;
+    width: 100%;
+    color: #ffffff;
+
+}
+.tcell {
+    background: #f5f5dc;
+    display: flex;
+    width: 100%;
+}
+ 
+.titem {
+    flex-grow: 1;
+    text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+ 
+.titem:hover {
+    background: #748ffc;
+}
