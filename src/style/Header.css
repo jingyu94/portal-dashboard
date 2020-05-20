@@ -1,0 +1,19 @@
+.header {
+    background: #5c7cfa;
+    display: flex;
+    width: 100%;
+}
+ 
+.item {
+    flex-grow: 1;
+    text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+ 
+.item:hover {
+    background: #748ffc;
+}
