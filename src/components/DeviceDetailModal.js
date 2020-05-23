@@ -25,6 +25,7 @@ const Modal = ({botName, processList, isOpen, close }) => {
                             <TableCell>Process</TableCell>
                             <TableCell>Version</TableCell>
                             <TableCell>Run</TableCell>
+                            <TableCell>hihi</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
