@@ -1,1 +1,1 @@
-export const authorization = "";
+export const authorization = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYmF0bHMxMjNAZ21haWwuY29tIiwiaWF0IjoxNTkwMjExNTA0LCJleHAiOjE1OTAyNzYzMDR9.OKtxFaTeTf_iWmlxIMKaHU05cJyr1xnDrsIgG8OJmOIZFb5DVulPiAQo1oURQ2MAOwGQNgdBRZYBKsmUxlT8HQ";

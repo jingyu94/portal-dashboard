@@ -7,7 +7,7 @@ const Header = () => {
         <div className="header">
             <Link exact to="/" className="item">DashBoard</Link>
             <Link to="/notification/" className="item">Notification</Link>
-            <Link to="/notification/" className="item">Script</Link>
+            <Link to="/script/" className="item">Script</Link>
             <Link to="/notification/" className="item">Statistics</Link>
         </div>
     );

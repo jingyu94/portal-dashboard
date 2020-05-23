@@ -70,6 +70,8 @@ this.timer = setInterval(() => {
         }) 
     
 
+          
+
         retrieveLatestData();
         runningDevices.forEach(function(element){
             params.deviceIds.push(element.deviceId);
@@ -148,7 +150,7 @@ this.timer = setInterval(() => {
                     Idle : {this.state.idle}</p>
             </div>
             <div>
-                <Table>
+                <Table width="auto">
                     <div className ="theader">
                             <TableCell width='10%'>deviceId</TableCell>
                             <TableCell width='10%'>Status</TableCell>

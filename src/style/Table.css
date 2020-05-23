@@ -1,7 +1,6 @@
 .theader {
     background: #CCCCCC  ;
     display: flex;
-    width: 100%;
     color: #ffffff;
     align-content: center;
 
@@ -9,7 +8,6 @@
 .tcell {
     background: #f5f5dc;
     display: flex;
-    width: 100%;
 }
  
 .titem {

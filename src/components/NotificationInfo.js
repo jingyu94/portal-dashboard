@@ -14,11 +14,13 @@ class NotificationInfo extends Component{
             deviceId:'',
             uuid:'',
             notifications : '',
+            logFile :'',
+            log : '',
         }
     }
 
     openModal = (deviceId,uuid) => {
-        this.retrieveNotificationDetail(deviceId,uuid)
+        this.retrieveNotificationDetail(deviceId,uuid,)
         this.setState({ 
             isModalOpen: true,
          });
@@ -41,12 +43,30 @@ class NotificationInfo extends Component{
              }
            )
        .then(response=>{
-           this.setState({
-               notifications : response.data.body,
-           })
-       })
+            this.setState({
+                notifications : response.data.body,
+                deviceId : response.data.body.deviceId,
+                logFile : response.data.body.logFile,
+            })
+            this.retrieveLogFile(response.data.body.deviceId,response.data.body.logFile)
+        })
+        
        .catch(err => console.log(err));
     }
+
+    retrieveLogFile = (deviceId,logFile)=> {  axios.get(apiUrl+'/peon/retrieveLogFile?deviceId='+deviceId+'&logFile='+logFile,{
+        headers : {
+          'Accept' : 'application/json', 
+          'Authorization' : auth.authorization,
+            }
+          }
+        )
+    .then(response=>{
+         this.setState({
+            log : response,
+        })
+    })
+}
 
 
 
@@ -60,7 +80,7 @@ class NotificationInfo extends Component{
                 <TableCell >{this.props.createdDate}</TableCell>
                 <TableCell >{this.props.message}</TableCell>
             </TableRow>
-            <Modal notificationDetail={this.state.notifications} isOpen={this.state.isModalOpen} close={this.closeModal}>
+            <Modal notificationDetail={this.state.notifications} isOpen={this.state.isModalOpen} log={this.state.log} close={this.closeModal}>
             </Modal>
         </div>
         )

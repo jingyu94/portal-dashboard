@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
-import { Dashboard, Notification } from 'pages';
+import { Dashboard, Notification, Script } from 'pages';
 import { Route,Switch } from 'react-router-dom';
 import Header from '../components/Header';
+
 
 
 
@@ -44,6 +45,7 @@ return (
         <Route exact path="/" component={Dashboard}/>
             <Switch>
                 <Route path="/notification" component={Notification}/>    
+                <Route path="/script" component={Script}/>    
             </Switch>
     </div>        
 );
