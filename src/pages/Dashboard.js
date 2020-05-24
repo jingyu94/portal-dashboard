@@ -104,7 +104,7 @@ this.timer = setInterval(() => {
         var tempIdle = 0;
         var tempRunning = 0;
         temp = response.data.body.list;    
-        temp.forEach(function(element){
+        temp.forEach((element)=>{
              if(element.status=='Running'){
                  tempRunning++;
             }else

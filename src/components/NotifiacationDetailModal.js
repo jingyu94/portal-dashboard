@@ -5,8 +5,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Table from '@material-ui/core/Table';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import ProcessInfo from './ProcessInfo';
 
 const Modal = ({notificationDetail, isOpen, log, close }) => {
   return (
@@ -31,7 +29,13 @@ const Modal = ({notificationDetail, isOpen, log, close }) => {
                                 :
                                 <div>
                                 <TableCell>
-                                  <textarea style={{width:'945px',height:'400px'}}>{log.data}</textarea>
+                                  {
+                                    JSON.stringify(log) == '{}' ?
+                                    null
+                                    :
+                                    <textarea style={{width:'945px',height:'400px'}}>{log.data}</textarea>
+                                    
+                                  }
                                 </TableCell>
                                   </div>
                                 }

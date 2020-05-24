@@ -19,16 +19,14 @@ class NotificationInfo extends Component{
         }
     }
 
-    openModal = (deviceId,uuid) => {
-        this.retrieveNotificationDetail(deviceId,uuid,)
-        this.setState({ 
-            isModalOpen: true,
-         });
-      }
-      
-    closeModal = () => {
-        this.setState({ isModalOpen: false }); 
-      }
+        openModal = (deviceId,uuid) => {
+            this.retrieveNotificationDetail(deviceId,uuid,)
+
+        }
+        
+        closeModal = () => {
+            this.setState({ isModalOpen: false }); 
+        }
 
         retrieveNotificationDetail = (deviceId,uuid)=> {
             var params={};
@@ -42,31 +40,32 @@ class NotificationInfo extends Component{
                }
              }
            )
-       .then(response=>{
+         .then(response=>{
             this.setState({
-                notifications : response.data.body,
-                deviceId : response.data.body.deviceId,
-                logFile : response.data.body.logFile,
-            })
-            this.retrieveLogFile(response.data.body.deviceId,response.data.body.logFile)
-        })
-        
-       .catch(err => console.log(err));
-    }
-
-    retrieveLogFile = (deviceId,logFile)=> {  axios.get(apiUrl+'/peon/retrieveLogFile?deviceId='+deviceId+'&logFile='+logFile,{
-        headers : {
-          'Accept' : 'application/json', 
-          'Authorization' : auth.authorization,
-            }
+                  notifications : response.data.body,
+                  deviceId : response.data.body.deviceId,
+                  logFile : response.data.body.logFile,
+              })
+              this.retrieveLogFile(response.data.body.deviceId, response.data.body.logFile)
+          })
+         .catch(err => console.log(err));
           }
+
+        retrieveLogFile = (deviceId,logFile)=> {
+            axios.get(apiUrl+'/peon/retrieveLogFile?deviceId='+deviceId+'&logFile='+logFile,{
+                headers : {
+                    'Accept' : 'application/json', 
+                    'Authorization' : auth.authorization,
+                }
+            }
         )
-    .then(response=>{
-         this.setState({
-            log : response,
-        })
-    })
-}
+        .then(response=>{
+            this.setState({
+                log : response,
+                isModalOpen : true,
+                })
+            })
+        }   
 
 
 
