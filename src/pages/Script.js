@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -57,8 +56,8 @@ componentDidMount() {
                 <Table>
                     <TableHead>
                         <div className="theader">
-                            <TableCell width='3%'>processName</TableCell>
-                            <TableCell width='9%'>version</TableCell>
+                            <TableCell width='10%'>processName</TableCell>
+                            <TableCell width='10%'>version</TableCell>
                         </div>
                     </TableHead>
                     <TableBody className = "tcell">

@@ -18,6 +18,7 @@ class NotificationInfo extends Component{
             log : '',
         }
     }
+    component
 
         openModal = (deviceId,uuid) => {
             this.retrieveNotificationDetail(deviceId,uuid,)
@@ -34,37 +35,39 @@ class NotificationInfo extends Component{
             params.deviceId = deviceId;
             params.uuid = uuid;
             axios.post(apiUrl+'/peon/command',params,{
-           headers : {
-             'Accept' : 'application/json', 
-             'Authorization' : auth.authorization,
-               }
-             }
-           )
-         .then(response=>{
-            this.setState({
-                  notifications : response.data.body,
-                  deviceId : response.data.body.deviceId,
-                  logFile : response.data.body.logFile,
-              })
-              this.retrieveLogFile(response.data.body.deviceId, response.data.body.logFile)
+                headers : {
+                    'Accept' : 'application/json', 
+                    'Authorization' : auth.authorization,
+                        },
+                        timeout:1000
+                    }
+            )
+            .then(response=>{
+                this.setState({
+                    notifications : response.data.body,
+                    deviceId : response.data.body.deviceId,
+                    logFile : response.data.body.logFile,
+                })
+                this.retrieveLogFile(response.data.body.deviceId, response.data.body.logFile)
           })
-         .catch(err => console.log(err));
-          }
+            .catch(err=>alert("로딩 실패 : " +err ))
+        }
 
         retrieveLogFile = (deviceId,logFile)=> {
             axios.get(apiUrl+'/peon/retrieveLogFile?deviceId='+deviceId+'&logFile='+logFile,{
                 headers : {
                     'Accept' : 'application/json', 
                     'Authorization' : auth.authorization,
-                }
+                },
             }
         )
         .then(response=>{
             this.setState({
-                log : response,
                 isModalOpen : true,
+                log : response,
                 })
             })
+        .catch(err=>alert("로딩 실패 : " +err ))
         }   
 
 

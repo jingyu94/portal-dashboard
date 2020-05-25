@@ -7,17 +7,18 @@ import TableCell from '@material-ui/core/TableCell';
 import Table from '@material-ui/core/Table';
 import ProcessInfo from './ProcessInfo';
 import BotScreenModal from './BotScreenModal';
+import "../style/Button.css"
 var processes=[];
 
 const Modal = ({botName, processList, isOpen, close }) => {
     processes = processList;
     const [isModalOpen,setIsModalOpen] = useState(false);
 
-  let openModal = () => {
+  const openModal = () => {
       setIsModalOpen(true);
     }
     
-  let closeModal = () => {
+  const closeModal = () => {
       setIsModalOpen(false);
     }
     
@@ -32,7 +33,7 @@ const Modal = ({botName, processList, isOpen, close }) => {
         <div className="Modal">
         <BotScreenModal isOpen={isModalOpen} close={closeModal} />
         <p className="title">{botName}</p>
-        <button onClick={()=>{openModal()}}>Screen</button>
+        <button className="btn" style={{float :"right"}} onClick={()=>{openModal()}}>Screen</button>
           <div className="content">
                 <Table>
                     <TableHead>

@@ -1,11 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component,useState,useEffect} from 'react';
 import axios from 'axios';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import NotificationInfo from '../components/NotificationInfo'
 import '../style/Table.css'
@@ -15,6 +13,10 @@ import * as auth from '../shared/Auth'
 const apiUrl ='http://211.253.28.27:8080';
 var notifications = [];
 var params = {};
+
+
+
+
 
 class Notification extends Component {
     constructor(props) {
@@ -27,8 +29,11 @@ class Notification extends Component {
     }
 
 componentDidMount() {
-    var temp ='';
-    let retrieveNotificationList= ()=>{ axios.post(apiUrl+'/peon/retrieveNotificationList',params,{
+    this.timer=setInterval(() => {
+        retrieveNotificationList();
+    }, 10000);
+
+    let retrieveNotificationList= () =>{ axios.post(apiUrl+'/peon/retrieveNotificationList',params,{
         headers : {
           'Accept' : 'application/json', 
           'Authorization' : auth.authorization,
@@ -45,10 +50,11 @@ componentDidMount() {
     })
 }
     retrieveNotificationList();
-    this.timer=setInterval(() => {
-        retrieveNotificationList();
-    }, 10000);
     
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timer);
     }
 
     

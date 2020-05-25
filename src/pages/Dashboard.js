@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Paper from '@material-ui/core/Paper';
 import DeviceInfo from '../components/DeviceInfo'
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -16,10 +14,6 @@ import * as auth from '../shared/Auth'
 const apiUrl ='http://211.253.28.27:8080';
 var runningDevices = [];
 var temp = [];
-var retrieveDetailParam = {
-    date : '',
-    deviceId : ''
-}
 
 class Dashboard extends Component {
     constructor(props) {
@@ -46,10 +40,46 @@ componentDidMount() {
     var params ={
         deviceIds : [
      ]};
-this.timer = setInterval(this.CircularProgress, 20);
-this.timer = setInterval(() => {
-    retrieveLatestData();
-}, 10000);
+
+     let retrieveLatestData = ()=> {
+        axios.post(apiUrl+'/peon/retrieveLatestData',params,{
+        headers : {
+        'Accept' : 'application/json', 
+        'Authorization' : auth.authorization,
+            }
+        }
+        )
+    .then(response=>{
+        var tempIdle = 0;
+        var tempRunning = 0;
+        temp = response.data.body.list;    
+        temp.forEach((element)=>{
+            if(element.status=='Running'){
+                tempRunning++;
+            }else
+            tempIdle++;
+        })
+        for(var i in temp){
+            for(var j in runningDevices){
+                if(runningDevices[j].deviceId == temp[i].deviceId)
+                runningDevices[j].status =  temp[i].status;        
+            }
+        }
+        this.setState({
+            connected:response.data.body.total,
+            numOfOffline : tempNum,
+            running : tempRunning,
+            idle : tempIdle
+        })
+    })
+    .catch(err => console.log(err));
+    }
+
+
+
+    this.timer = setInterval(() => {
+        retrieveLatestData();
+    }, 10000);
 
     
     
@@ -68,9 +98,6 @@ this.timer = setInterval(() => {
             total:response.data.body.itemNum,
             numOfOffline : tempNum
         }) 
-    
-
-          
 
         retrieveLatestData();
         runningDevices.forEach(function(element){
@@ -84,58 +111,15 @@ this.timer = setInterval(() => {
     })
     .catch(err => console.log(err));
     
-    /* axios.get(apiUrl + 'peon/retrieveProcessList', {
-        params: params,
-        headers: {
-            'Accept': 'application/json',
-            'Authorization' : ''
-        }
-    }) */
-    
-     let retrieveLatestData = ()=> {
-         axios.post(apiUrl+'/peon/retrieveLatestData',params,{
-        headers : {
-          'Accept' : 'application/json', 
-          'Authorization' : auth.authorization,
-            }
-          }
-        )
-    .then(response=>{
-        var tempIdle = 0;
-        var tempRunning = 0;
-        temp = response.data.body.list;    
-        temp.forEach((element)=>{
-             if(element.status=='Running'){
-                 tempRunning++;
-            }else
-            tempIdle++;
-        })
-        for(var i in temp){
-            for(var j in runningDevices){
-                if(runningDevices[j].deviceId == temp[i].deviceId)
-                runningDevices[j].status =  temp[i].status;        
-            }
-        }
-        this.setState({
-            connected:response.data.body.total,
-            numOfOffline : tempNum,
-            running : tempRunning,
-            idle : tempIdle
-        })
-    })
-    .catch(err => console.log(err));
-     }
+
     }
     
     
     
     componentWillUnmount() {
-    
+        clearInterval(this.timer);
     }
      
-    callApi = async () => {
-    
-    }
     
     render() {
 
